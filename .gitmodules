@@ -1,0 +1,3 @@
+[submodule "asosuite-shared"]
+	path = asosuite-shared
+	url = git@github.com:nielsmouthaan/asosuite-shared.git
