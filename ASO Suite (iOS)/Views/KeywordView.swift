@@ -6,39 +6,51 @@
 //
 
 import SwiftUI
+import ASOSuiteShared
 
 struct KeywordView: View {
     
-    let keyword: String
+    let keyword: Keyword
     
     var body: some View {
         HStack {
-            Text(keyword)
+            Text(keyword.keyword)
             Spacer()
-            ZStack {
-                Circle()
-                    .stroke(
-                        Color(.tertiarySystemGroupedBackground),
-                        lineWidth: 3
-                    )
-                Circle()
-                    .trim(from: 0, to: 0.25)
-                    .stroke(
-                        Color.green,
-                        style: StrokeStyle(
-                            lineWidth: 3,
-                            lineCap: .round
+            
+            if let popularity = keyword.popularity {
+                ZStack {
+                    Circle()
+                        .stroke(
+                            Color(.tertiarySystemGroupedBackground),
+                            lineWidth: 4
                         )
-                    )
-                    .rotationEffect(.degrees(-90))
+                    Circle()
+                        .trim(from: 0, to: CGFloat(popularity) / 100)
+                        .stroke(
+                            Color(score: popularity),
+                            style: StrokeStyle(
+                                lineWidth: 4,
+                                lineCap: .round
+                            )
+                        )
+                        .rotationEffect(.degrees(-90))
+                }
+                .frame(width: 20, height: 20)
+            } else {
+                ProgressView()
             }
-            .frame(width: 15, height: 15)
         }
     }
 }
 
 struct KeywordView_Previews: PreviewProvider {
     static var previews: some View {
-        KeywordView(keyword: "time tracker")
+        let keyword1 = Keyword(keyword: "christmas", popularity: 5)
+        let keyword2 = Keyword(keyword: "new years eve", popularity: 25)
+        let keyword3 = Keyword(keyword: "valentines day", popularity: 50)
+        let keyword4 = Keyword(keyword: "eastern", popularity: 75)
+        let keyword5 = Keyword(keyword: "thanksgiving")
+        let viewModel = KeywordsViewModel(keywords: [keyword1, keyword2, keyword3, keyword4, keyword5])
+        KeywordsView(viewModel: viewModel)
     }
 }

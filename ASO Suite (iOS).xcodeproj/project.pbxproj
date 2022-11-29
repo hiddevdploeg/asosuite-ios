@@ -12,6 +12,8 @@
 		B82FCA002935FEB000997CE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B82FC9FF2935FEB000997CE4 /* Preview Assets.xcassets */; };
 		B842B79029361D52005655D5 /* KeywordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B842B78E29361D52005655D5 /* KeywordsView.swift */; };
 		B842B79329363589005655D5 /* KeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B842B79229363589005655D5 /* KeywordView.swift */; };
+		B8D9E729293650E800334663 /* KeywordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D9E728293650E800334663 /* KeywordsViewModel.swift */; };
+		B8D9E72D2936519B00334663 /* ASOSuiteShared in Frameworks */ = {isa = PBXBuildFile; productRef = B8D9E72C2936519B00334663 /* ASOSuiteShared */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,7 @@
 		B842B78A29361AAB005655D5 /* asosuite-shared */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "asosuite-shared"; sourceTree = "<group>"; };
 		B842B78E29361D52005655D5 /* KeywordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeywordsView.swift; sourceTree = "<group>"; };
 		B842B79229363589005655D5 /* KeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordView.swift; sourceTree = "<group>"; };
+		B8D9E728293650E800334663 /* KeywordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8D9E72D2936519B00334663 /* ASOSuiteShared in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +62,7 @@
 			children = (
 				B82FC9F82935FEAD00997CE4 /* ASOSuite.swift */,
 				B842B78D29361D52005655D5 /* Views */,
+				B8D9E727293650CC00334663 /* ViewModels */,
 				B82FC9FC2935FEB000997CE4 /* Assets.xcassets */,
 				B82FC9FE2935FEB000997CE4 /* Preview Content */,
 			);
@@ -96,6 +101,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		B8D9E727293650CC00334663 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B8D9E728293650E800334663 /* KeywordsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,6 +125,9 @@
 			dependencies = (
 			);
 			name = "ASO Suite (iOS)";
+			packageProductDependencies = (
+				B8D9E72C2936519B00334663 /* ASOSuiteShared */,
+			);
 			productName = "ASO Suite (iOS)";
 			productReference = B82FC9F52935FEAD00997CE4 /* ASO Suite.app */;
 			productType = "com.apple.product-type.application";
@@ -168,6 +184,7 @@
 			files = (
 				B842B79329363589005655D5 /* KeywordView.swift in Sources */,
 				B842B79029361D52005655D5 /* KeywordsView.swift in Sources */,
+				B8D9E729293650E800334663 /* KeywordsViewModel.swift in Sources */,
 				B82FC9F92935FEAD00997CE4 /* ASOSuite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +388,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B8D9E72C2936519B00334663 /* ASOSuiteShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ASOSuiteShared;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B82FC9ED2935FEAD00997CE4 /* Project object */;
 }

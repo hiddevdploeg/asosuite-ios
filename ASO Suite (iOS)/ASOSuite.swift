@@ -11,7 +11,8 @@ import SwiftUI
 struct ASOSuite: App {
     var body: some Scene {
         WindowGroup {
-            KeywordsView()
+            let viewModel = KeywordsViewModel()
+            KeywordsView(viewModel: viewModel)
         }
     }
 }
