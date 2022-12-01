@@ -11,7 +11,7 @@ import ASOSuiteShared
 struct KeywordsView: View {
     
     @ObservedObject var viewModel: KeywordsViewModel
-    @State private var filterText = ""
+    @State private var filterQuery = ""
     @State private var shouldPresentAddKeywordsAlert = false
     @State private var addKeywordText = ""
     
@@ -21,13 +21,13 @@ struct KeywordsView: View {
                 ForEach(viewModel.keywords, id: \.keyword) { keyword in
                     KeywordView(keyword: keyword)
                 }
-                .onDelete { indexSet in
-                    viewModel.keywords.remove(atOffsets: indexSet)
+                .onDelete { offsets in
+                    viewModel.removeKeyword(atOffsets: offsets)
                 }
             }
-            .searchable(text: $filterText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Filter")
-                .onChange(of: filterText) { search in
-                    // TODO
+            .searchable(text: $filterQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Filter")
+                .onChange(of: filterQuery) { search in
+                    viewModel.filterQuery = filterQuery
                 }
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
@@ -50,7 +50,8 @@ struct KeywordsView: View {
                 Button("Add", action: {
                     if addKeywordText.count > 0 {
                         let keyword = Keyword(keyword: addKeywordText)
-                        viewModel.keywords.append(keyword)
+                        viewModel.addKeyword(keyword)
+                        addKeywordText = ""
                     }
                 })
             })
