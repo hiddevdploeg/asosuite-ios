@@ -15,15 +15,22 @@ struct KeywordsView: View {
     @State private var shouldPresentAddKeywordsAlert = false
     @State private var addKeywordText = ""
     
+    private var filteredKeywords: [Keyword] {
+        if filterQuery.count == 0 {
+            return viewModel.keywords
+        } else {
+            return viewModel.keywords.filter({ $0.keyword.localizedCaseInsensitiveContains(filterQuery) })
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.keywords, id: \.keyword) { keyword in
+                ForEach(filteredKeywords, id: \.self) { keyword in
                     KeywordView(keyword: keyword)
                 }
                 .onDelete { offsets in
-                    let keyword = viewModel.keywords[offsets.first!]
-                    viewModel.removeKeyword(keyword)
+                    viewModel.removeKeyword(atOffsets: offsets)
                 }
             }
             .searchable(text: $filterQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Filter")

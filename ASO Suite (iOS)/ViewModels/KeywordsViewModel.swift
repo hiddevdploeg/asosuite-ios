@@ -27,8 +27,8 @@ public class KeywordsViewModel: ObservableObject {
         }
     }
     
-    public func removeKeyword(_ keyword: Keyword) {
-        keywords.removeAll(where: { $0.keyword.localizedCaseInsensitiveCompare(keyword.keyword) == .orderedSame })
+    public func removeKeyword(atOffsets offsets: IndexSet) {
+        keywords.remove(atOffsets: offsets)
         storeKeywords()
     }
     
