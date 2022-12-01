@@ -14,58 +14,35 @@ public class KeywordsViewModel: ObservableObject {
     private static let userDefaultsKey = "keywords"
     
     @Published public private(set) var keywords: [Keyword]
-    private var allKeywords: [Keyword] {
-        willSet {
-            filter()
-        }
-    }
-    
-    public var filterQuery: String = "" {
-        willSet {
-            filter()
-        }
-    }
     
     init(keywords: [Keyword]? = nil) {
         if let keywords {
-            self.allKeywords = keywords
-            self.keywords = self.allKeywords
+            self.keywords = keywords
         } else {
-            let allKeywords = UserDefaults.standard.stringArray(forKey: KeywordsViewModel.userDefaultsKey) ?? []
-            self.allKeywords = allKeywords.map { keyword in
+            let keywords = UserDefaults.standard.stringArray(forKey: KeywordsViewModel.userDefaultsKey) ?? []
+            self.keywords = keywords.map { keyword in
                 return Keyword(keyword: keyword)
             }
-            self.keywords = self.allKeywords
             fetchStatistics()
         }
     }
     
-    private func filter() {
-        if filterQuery.count == 0 {
-            keywords = allKeywords
-        } else {
-            keywords = allKeywords.filter({ $0.keyword.localizedCaseInsensitiveContains(filterQuery) })
-        }
-    }
-    
     public func removeKeyword(_ keyword: Keyword) {
-        allKeywords.removeAll(where: { $0.keyword.localizedCaseInsensitiveContains(keyword.keyword) })
-        filter()
+        keywords.removeAll(where: { $0.keyword.localizedCaseInsensitiveCompare(keyword.keyword) == .orderedSame })
         storeKeywords()
     }
     
     public func addKeyword(_ newKeyword: Keyword) {
-        if allKeywords.contains(where: { $0.keyword.localizedCaseInsensitiveContains(newKeyword.keyword) }) {
+        if keywords.contains(where: { $0.keyword.localizedCaseInsensitiveCompare(newKeyword.keyword) == .orderedSame }) {
             return
         }
-        allKeywords.append(newKeyword)
-        filter()
+        keywords.append(newKeyword)
         storeKeywords()
         fetchStatistics()
     }
     
     private func storeKeywords() {
-        let keywords = allKeywords.map { keyword in
+        let keywords = keywords.map { keyword in
             return keyword.keyword
         }
         UserDefaults.standard.set(keywords, forKey: KeywordsViewModel.userDefaultsKey)
