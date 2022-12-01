@@ -14,14 +14,14 @@ public class KeywordsViewModel: ObservableObject {
     private static let userDefaultsKey = "keywords"
     
     private var allKeywords: [Keyword] {
-        didSet {
+        willSet {
             filter()
         }
     }
     @Published public private(set) var keywords: [Keyword]
     
     public var filterQuery: String = "" {
-        didSet {
+        willSet {
             filter()
         }
     }
@@ -41,18 +41,21 @@ public class KeywordsViewModel: ObservableObject {
     }
     
     public func removeKeyword(atOffsets offsets: IndexSet) {
-        self.keywords.remove(atOffsets: offsets)
+        self.allKeywords.remove(atOffsets: offsets)
         storeKeywords()
     }
     
-    public func addKeyword(_ keyword: Keyword) {
-        self.keywords.append(keyword)
+    public func addKeyword(_ newKeyword: Keyword) {
+        if self.allKeywords.contains(newKeyword) {
+            return
+        }
+        self.allKeywords.append(newKeyword)
         storeKeywords()
         fetchStatistics()
     }
     
     private func storeKeywords() {
-        let keywords = self.keywords.map { keyword in
+        let keywords = self.allKeywords.map { keyword in
             return keyword.keyword
         }
         UserDefaults.standard.set(keywords, forKey: KeywordsViewModel.userDefaultsKey)
@@ -70,13 +73,13 @@ public class KeywordsViewModel: ObservableObject {
         Task {
             do {
                 var attempts = 0
-                while !Keyword.hasAllStatistics(keywords: self.keywords) {
+                while !Keyword.hasAllStatistics(keywords: self.allKeywords) {
                     attempts += 1
-                    self.allKeywords = try await Keyword.updateStatistics(keywords: self.keywords, region: "US")
+                    self.allKeywords = try await Keyword.updateStatistics(keywords: self.allKeywords, region: "US")
                     try await Task.sleep(nanoseconds: (attempts == 1) ? 3_000_000_000 : (attempts == 2) ? 5_000_000_000 : 20_000_000_000)
                 }
             } catch {
-                print("Failed fetching statistics: \(error.localizedDescription)")
+                print("Failed fetching statistics: \(error)")
             }
         }
     }

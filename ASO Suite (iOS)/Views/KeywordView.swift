@@ -16,7 +16,6 @@ struct KeywordView: View {
         HStack {
             Text(keyword.keyword)
             Spacer()
-            
             if let popularity = keyword.popularity {
                 ZStack {
                     Circle()
