@@ -22,7 +22,8 @@ struct KeywordsView: View {
                     KeywordView(keyword: keyword)
                 }
                 .onDelete { offsets in
-                    viewModel.removeKeyword(atOffsets: offsets)
+                    let keyword = viewModel.keywords[offsets.first!]
+                    viewModel.removeKeyword(keyword)
                 }
             }
             .searchable(text: $filterQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Filter")
