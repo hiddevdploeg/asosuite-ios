@@ -32,11 +32,16 @@ public class KeywordsViewModel: ObservableObject {
         storeKeywords()
     }
     
-    public func addKeyword(_ newKeyword: Keyword) {
-        if keywords.contains(where: { $0.keyword.localizedCaseInsensitiveCompare(newKeyword.keyword) == .orderedSame }) {
+    public func addKeywords(_ newKeywords: [Keyword]) {
+        let uniqueNewKeywords = newKeywords.filter { newKeyword in
+            return !keywords.contains { existingKeyword in
+                return existingKeyword.keyword.localizedCaseInsensitiveCompare(newKeyword.keyword) == .orderedSame
+            }
+        }
+        if uniqueNewKeywords.count == 0 {
             return
         }
-        keywords.append(newKeyword)
+        keywords.append(contentsOf: uniqueNewKeywords)
         storeKeywords()
         fetchStatistics()
     }

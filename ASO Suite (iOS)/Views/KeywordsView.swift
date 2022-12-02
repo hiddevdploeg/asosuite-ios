@@ -12,7 +12,7 @@ struct KeywordsView: View {
     
     @ObservedObject var viewModel: KeywordsViewModel
     @State private var filterQuery = ""
-    @State private var shouldPresentAddKeywordsAlert = false
+    @State private var showingAddKeywordsSheet = false
     @State private var addKeywordText = ""
     
     private var filteredKeywords: [Keyword] {
@@ -43,26 +43,16 @@ struct KeywordsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        shouldPresentAddKeywordsAlert = true
+                        showingAddKeywordsSheet = true
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
-            .alert("Add keyword", isPresented: $shouldPresentAddKeywordsAlert, actions: {
-                TextField("Keyword", text: $addKeywordText)
-                    .autocapitalization(.none)
-                    .autocorrectionDisabled()
-                    .submitLabel(.done)
-                Button("Cancel", role: .cancel, action: {})
-                Button("Add", action: {
-                    if addKeywordText.count > 0 {
-                        let keyword = Keyword(keyword: addKeywordText)
-                        viewModel.addKeyword(keyword)
-                        addKeywordText = ""
-                    }
-                })
-            })
+            .sheet(isPresented: $showingAddKeywordsSheet) {
+                AddKeywordsView(viewModel: viewModel)
+                    .interactiveDismissDisabled(true)
+            }
         }
     }
 }

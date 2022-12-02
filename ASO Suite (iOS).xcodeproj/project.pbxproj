@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B807948C293A2D20009FFEB0 /* AddKeywordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B807948B293A2D20009FFEB0 /* AddKeywordsView.swift */; };
 		B82FC9F92935FEAD00997CE4 /* ASOSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82FC9F82935FEAD00997CE4 /* ASOSuite.swift */; };
 		B82FC9FD2935FEB000997CE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B82FC9FC2935FEB000997CE4 /* Assets.xcassets */; };
 		B82FCA002935FEB000997CE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B82FC9FF2935FEB000997CE4 /* Preview Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B807948B293A2D20009FFEB0 /* AddKeywordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddKeywordsView.swift; sourceTree = "<group>"; };
 		B82FC9F52935FEAD00997CE4 /* ASO Suite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ASO Suite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B82FC9F82935FEAD00997CE4 /* ASOSuite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASOSuite.swift; sourceTree = "<group>"; };
 		B82FC9FC2935FEB000997CE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				B842B78E29361D52005655D5 /* KeywordsView.swift */,
 				B842B79229363589005655D5 /* KeywordView.swift */,
+				B807948B293A2D20009FFEB0 /* AddKeywordsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B842B79329363589005655D5 /* KeywordView.swift in Sources */,
+				B807948C293A2D20009FFEB0 /* AddKeywordsView.swift in Sources */,
 				B842B79029361D52005655D5 /* KeywordsView.swift in Sources */,
 				B8D9E729293650E800334663 /* KeywordsViewModel.swift in Sources */,
 				B82FC9F92935FEAD00997CE4 /* ASOSuite.swift in Sources */,
