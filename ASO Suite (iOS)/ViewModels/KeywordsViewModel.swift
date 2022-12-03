@@ -23,7 +23,7 @@ public class KeywordsViewModel: ObservableObject {
             self.keywords = keywords.map { keyword in
                 return Keyword(keyword: keyword)
             }
-            fetchStatistics()
+            updateStatistics()
         }
     }
     
@@ -33,17 +33,10 @@ public class KeywordsViewModel: ObservableObject {
     }
     
     public func addKeywords(_ newKeywords: [Keyword]) {
-        let uniqueNewKeywords = newKeywords.filter { newKeyword in
-            return !keywords.contains { existingKeyword in
-                return existingKeyword.keyword.localizedCaseInsensitiveCompare(newKeyword.keyword) == .orderedSame
-            }
-        }
-        if uniqueNewKeywords.count == 0 {
-            return
-        }
+        let uniqueNewKeywords = newKeywords.filter { !$0.existsIn(keywords) }
         keywords.append(contentsOf: uniqueNewKeywords)
         storeKeywords()
-        fetchStatistics()
+        updateStatistics()
     }
     
     private func storeKeywords() {
@@ -53,7 +46,7 @@ public class KeywordsViewModel: ObservableObject {
         UserDefaults.standard.set(keywords, forKey: KeywordsViewModel.userDefaultsKey)
     }
     
-    private func fetchStatistics() {
+    private func updateStatistics() {
         Task {
             do {
                 var attempts = 0

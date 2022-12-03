@@ -26,7 +26,7 @@ struct KeywordsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(filteredKeywords, id: \.self) { keyword in
+                ForEach(filteredKeywords, id: \.keyword) { keyword in
                     KeywordView(keyword: keyword)
                 }
                 .onDelete { offsets in
@@ -34,9 +34,6 @@ struct KeywordsView: View {
                 }
             }
             .searchable(text: $filterQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "Filter")
-                .onChange(of: filterQuery) { search in
-                    //viewModel.filterQuery = filterQuery
-                }
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
             .navigationTitle("Keywords")
