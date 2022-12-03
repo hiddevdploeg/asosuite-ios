@@ -49,15 +49,7 @@ public class KeywordsViewModel: ObservableObject {
     private func updateStatistics() {
         Task {
             do {
-                var attempts = 0
-                while shouldFetchStatistics {
-                    attempts += 1
-                    keywords = try await Keyword.updateStatistics(keywords: keywords, region: "US")
-                    if !shouldFetchStatistics {
-                        break
-                    }
-                    try await Task.sleep(nanoseconds: (attempts == 1) ? 3_000_000_000 : (attempts == 2) ? 5_000_000_000 : 20_000_000_000)
-                }
+                keywords = try await Keyword.updateStatistics(keywords: keywords, region: "US")
             } catch {
                 print("Failed fetching statistics: \(error)")
             }

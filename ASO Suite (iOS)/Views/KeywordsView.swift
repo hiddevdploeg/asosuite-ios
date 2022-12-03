@@ -26,9 +26,11 @@ struct KeywordsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(filteredKeywords, id: \.keyword) { keyword in
+                ForEach(viewModel.keywords) { keyword in
                     KeywordView(keyword: keyword)
                 }
+                
+                
                 .onDelete { offsets in
                     viewModel.removeKeyword(atOffsets: offsets)
                 }
